@@ -54,19 +54,32 @@ for species_file in species_list:
 
         # import group of images
         images = map(Image.open, condition_dictionary[condition])
+
+        # get widths and heights of images if no images present then go to next condition
         try:
             widths, heights = zip(*(i.size for i in images))
         except ValueError:
             print "No images for condition"
             continue
+
+        # Calc size of new image stack
         max_width = max(widths)
         sum_height = sum(heights)
 
+        # define new image
         new_im = Image.new('RGB', (max_width, sum_height))
 
+        # images spacer set to 0 for no space between stacked images
         y_offset = 0
+
+        # Create image stack
         for im in images:
-          new_im.paste(im, (0,y_offset))
-          y_offset += im.size[1]
+            new_im.paste(im, (0,y_offset))
+            # incrament the paste point by image size
+            y_offset += im.size[1]
+
+        # Stack of dominate colors image output name and dir
         image_name_and_output_dir = image_location+images_out +'SUMMARY_'+species_file+'_'+condition+'_Dominate_colors.jpg'
+
+        # Save new image 
         new_im.save(image_name_and_output_dir.replace('.*','_').replace('(base|bottom)','base'))

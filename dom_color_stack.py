@@ -82,4 +82,4 @@ for species_file in species_list:
         image_name_and_output_dir = image_location+images_out +'SUMMARY_'+species_file+'_'+condition+'_Dominate_colors.jpg'
 
         # Save new image 
-        new_im.save(image_name_and_output_dir.replace('.*','_').replace('(base|bottom)','base'))
+        new_im.save(image_name_and_output_dir.replace('.*','_').replace('(base|bottom)','base').replace('Tou','Toucan').replace('red|',''))
